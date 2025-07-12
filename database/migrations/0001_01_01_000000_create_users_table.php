@@ -16,6 +16,8 @@ return new class extends Migration
                 ->primary();
             $table->string('account_hash', 8)
                 ->unique();
+            $table->boolean('is_admin')
+                ->default(false);
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

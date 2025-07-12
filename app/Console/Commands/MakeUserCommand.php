@@ -5,11 +5,8 @@ namespace App\Console\Commands;
 use App\Models\User;
 use App\Services\AccountHashGenerator;
 use Filament\Facades\Filament;
-use Illuminate\Auth\EloquentUserProvider;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Support\Facades\Hash;
 use function Laravel\Prompts\password;
 use function Laravel\Prompts\text;
@@ -68,7 +65,11 @@ class MakeUserCommand extends Command
      */
     protected function createUser(): Authenticatable
     {
-        return User::create($this->getUserData());
+        $user = User::make($this->getUserData());
+        $user->is_admin = true;
+        $user->save();
+
+        return $user;
     }
 
     /**

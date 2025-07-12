@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +20,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // `$model->nonexistent_attribute` should throw
+        Model::preventAccessingMissingAttributes();
+        // `Model::create(['non_fillable_attribute' => 'value'])` should throw
+        Model::preventSilentlyDiscardingAttributes();
     }
 }
