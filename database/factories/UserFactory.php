@@ -26,7 +26,6 @@ class UserFactory extends Factory
     {
         return [
             'account_hash' => resolve(AccountHashGenerator::class)->generate(),
-            'email' => fake()->unique()->safeEmail(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
         ];
